@@ -1,5 +1,3 @@
-// @grant           GM_xmlhttpRequest
-
 var rightControls = document.querySelector(".right-controls-buttons.style-scope.ytmusic-player-bar");
 
 var buttonDiv = document.createElement("div");
@@ -14,8 +12,36 @@ button.addEventListener('click', downloadTrack);
 buttonDiv.appendChild(button);
 
 var image = document.createElement("img");
+image.id = "download-button-image";
 image.src = chrome.runtime.getURL("icons/button24.png");
 button.appendChild(image);
+
+let currentUrl = location.href;
+
+setInterval(() => {
+  if (location.href !== currentUrl) {
+    currentUrl = location.href;
+    tryShowButton();
+  }
+}, 500);
+
+function tryShowButton()
+{
+    console.log("Hash changed");
+    var button = document.getElementById("download-button");
+    var image = document.getElementById("download-button-image");
+    const regex = /https:\/\/music\.youtube\.com\/watch\?v=/i;
+    console.log(window.location.href.match(regex));
+    
+    if (window.location.href.match(regex)) {
+        button.disabled = false;
+        image.src = chrome.runtime.getURL("icons/button24.png");
+    }
+    else {
+        button.disabled = true;
+        image.src = chrome.runtime.getURL("icons/disabledButton24.png");
+    }
+}
 
 function Cobalt(videoUrl, audioOnly = false) {
     return new Promise((resolve, reject) => {
@@ -44,7 +70,12 @@ function Cobalt(videoUrl, audioOnly = false) {
 }
 
 async function downloadTrack() {
-    const url = window.location.href.replace('music.youtube.com', 'www.youtube.com');
-    const cobaltResult = await Cobalt(url, true);
-    window.open(cobaltResult, '_blank');
+    try {
+        const url = window.location.href.replace('music.youtube.com', 'www.youtube.com');
+        const cobaltResult = await Cobalt(url, true);
+        window.open(cobaltResult, '_blank');
+    }
+    catch {
+        console.log("Url doesn't contai watch?v=");   
+    }
 }
