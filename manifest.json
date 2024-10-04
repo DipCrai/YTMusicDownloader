@@ -1,6 +1,6 @@
 {
     "name": "YouTube Music Downloader",
-    "version": "0.0.0.1",
+    "version": "0.0.0.2",
     "manifest_version": 3,
     "description": "Allows users to download current YT music track.",
     "icons": {
