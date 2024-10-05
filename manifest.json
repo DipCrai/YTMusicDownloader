@@ -1,24 +1,29 @@
 {
     "name": "YouTube Music Downloader",
-    "version": "0.0.0.2",
+    "version": "0.0.0.3",
     "manifest_version": 3,
     "description": "Allows users to download current YT music track.",
     "icons": {
         "128": "icons/button128.png",
-        "48": "icons/button48.png",
-        "32": "icons/button32.png"
+        "48": "icons/button48.png"
     },
     "content_scripts": [
         {
             "matches": ["https://music.youtube.com/*"],
-            "js": ["js/ButtonScript.js"],
-            "css": ["css/style.css"]
+            "js": ["js/YTMbuttonScript.js", "js/Cobalt.js"],
+            "css": ["css/ytmstyle.css"]
+        },
+        {
+            "matches": ["https://www.youtube.com/*"],
+            "js": ["js/YTbuttonScript.js", "js/Cobalt.js"],
+            "css": ["css/ytstyle.css"]
         }
+        
     ],
     "web_accessible_resources": [
         {
-            "resources": ["icons/*.png"],
-            "matches": ["https://music.youtube.com/*"]
+            "resources": ["icons/*.png", "js/Cobalt.js"],
+            "matches": ["https://*.youtube.com/*"]
         }
     ]
 }
