@@ -1,6 +1,6 @@
 {
     "name": "YouTube Music Downloader",
-    "version": "0.0.0.3",
+    "version": "0.0.0.4",
     "manifest_version": 3,
     "description": "Allows users to download current YT music track.",
     "icons": {
@@ -10,7 +10,7 @@
     "content_scripts": [
         {
             "matches": ["https://music.youtube.com/*"],
-            "js": ["js/YTMbuttonScript.js", "js/Cobalt.js"],
+            "js": ["js/YTMbuttonScript.js", "js/Cobalt.js", "js/PlayerRemover.js"],
             "css": ["css/ytmstyle.css"]
         },
         {
